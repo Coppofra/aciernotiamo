@@ -1,0 +1,5 @@
+.studente { padding: 4px 0; display: flex; align-items: center; gap: 8px; }
+.nome { font-weight: 600; }
+.classe { color: #555; }
+.mostra-media { font-size: 0.85rem; padding: 4px 8px; cursor: pointer; }
+.media { font-style: italic; color: #333; }

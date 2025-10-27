@@ -1,0 +1,6 @@
+<div class="studente">
+  <span class="nome">{{ studente.nome }}</span>
+  <span class="classe ms-2 text-muted">({{ studente.classe }})</span>
+  <button type="button" (click)="toggleMedia()" class="mostra-media">mostra media voti</button>
+  <span *ngIf="showMedia" class="media">Media: {{ mediaCalcolata }}</span>
+</div>
