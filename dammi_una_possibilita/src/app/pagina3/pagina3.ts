@@ -1,8 +1,9 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Studente } from '../studente/studente';
 import { SearchService } from '../search.service';
 import { Subscription } from 'rxjs';
+import { StudentiService } from '../services/nome-servizio';
 
 @Component({
   selector: 'app-pagina3',
@@ -11,34 +12,17 @@ import { Subscription } from 'rxjs';
   templateUrl: './pagina3.html',
   styleUrls: ['./pagina3.css'],
 })
-export class Pagina3 implements OnDestroy {
-  studenti = [
-    { id: 1, nome: 'Mario',   classe: '5D', voti: [4, 4, 4, 4.3] },
-    { id: 2, nome: 'Luca',    classe: '5D', voti: [7, 7, 8] },
-    { id: 3, nome: 'Luigi',   classe: '5D', voti: [4, 4, 3.7] },
-    { id: 4, nome: 'Paolo',   classe: '5D', voti: [7, 7, 7] },
-    { id: 5, nome: 'Andrea',  classe: '5D', voti: [6, 5.5, 5.6] },
-
-    // nuovi studenti in altre classi
-    { id: 6, nome: 'Giulia',  classe: '4A', voti: [8, 7.5, 9] },
-    { id: 7, nome: 'Francesca', classe: '4A', voti: [6.5, 7, 6] },
-    { id: 8, nome: 'Marco',   classe: '3B', voti: [5, 5.5, 6] },
-    { id: 9, nome: 'Elena',   classe: '3B', voti: [9, 8.5, 9.5] },
-    { id: 10, nome: 'Sofia',  classe: '2C', voti: [7, 6.5, 7.2] },
-    { id: 11, nome: 'Tommaso',classe: '2C', voti: [4.5, 5, 5.2] },
-    { id: 12, nome: 'Chiara',  classe: '5A', voti: [8, 8, 7.5] },
-    { id: 13, nome: 'Federico',classe: '4D', voti: [6, 6.5, 6.2] },
-    { id: 14, nome: 'Beatrice',classe: '1E', voti: [9.5, 9, 10] },
-    { id: 15, nome: 'Alessandro', classe: '1E', voti: [5.5, 6, 5.8] },
-  ];
+export class Pagina3 implements OnDestroy, OnInit {
 
   private sub: Subscription;
   searchTerm = '';
-
-  constructor(private search: SearchService) {
+  studenti: any[] = [];
+  constructor(private search: SearchService, private studentiService: StudentiService) {
     this.sub = this.search.term$.subscribe(t => this.searchTerm = (t || '').toLowerCase());
   }
-
+  ngOnInit() {
+    this.studenti = this.studentiService.getStudenti();
+  }
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }

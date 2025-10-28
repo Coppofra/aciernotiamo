@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Injectable, Input } from '@angular/core';
 
 @Component({
   selector: 'app-studente',
@@ -38,4 +38,9 @@ export class Studente {
     const avg = this.computeAverage();
     return avg === null ? '-' : avg.toFixed(1);
   }
+}
+@Injectable({
+providedIn: 'root'
+})
+export class Studenti {
 }
