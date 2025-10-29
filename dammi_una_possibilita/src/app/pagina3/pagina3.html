@@ -1,5 +1,16 @@
 <h2>Elenco studenti</h2>
 
+<!-- Aggiunto: filtro per classe -->
+<div class="mb-3 d-flex align-items-center gap-2">
+  <input type="text" class="form-control w-auto" placeholder="Filtra per classe (es. 5D)" [(ngModel)]="classFilter" />
+  <button type="button" class="btn btn-outline-secondary btn-sm" (click)="classFilter=''">Reset classe</button>
+</div>
+
+<!-- Messaggio se filtro classe non vuoto e nessun risultato -->
+<div *ngIf="(classFilter?.trim() !== '') && displayedStudents.length === 0" class="alert alert-warning">
+  Nessuno studente trovato per la classe
+</div>
+
 <div class="table-responsive">
   <table class="table table-striped table-hover align-middle">
     <thead class="table-light">
@@ -9,7 +20,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let s of filteredStudents">
+      <tr *ngFor="let s of displayedStudents">
         <td>
           <app-studente [studente]="s"></app-studente>
         </td>
@@ -17,7 +28,12 @@
           <button type="button" class="btn btn-sm btn-outline-primary" (click)="toggleMedia(s.id)">
             mostra media voti
           </button>
-          <span *ngIf="isMediaVisible(s.id)" class="ms-3 fst-italic">Media: {{ averageOf(s) }}</span>
+          <button type="button" class="btn btn-sm btn-outline-danger ms-2" (click)="removeStudent(s.id)">
+            Rimuovi
+          </button>
+          <span *ngIf="isMediaVisible(s.id)" class="ms-3 fst-italic" [ngClass]="averageClass(s)">
+            Media: {{ averageOf(s) }}
+          </span>
         </td>
       </tr>
     </tbody>

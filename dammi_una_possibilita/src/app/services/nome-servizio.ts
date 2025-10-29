@@ -62,7 +62,27 @@ studenti = [
   isMediaVisible(id: number): boolean {
     return this.visibleMedia.has(id);
   }
-getStudenti() {
-return this.studenti;
-}
+
+  getStudenti() {
+    return this.studenti;
+  }
+
+  // Aggiunto: rimuove uno studente per id, ritorna true se rimosso
+  removeStudent(id: number): boolean {
+    const idx = this.studenti.findIndex(s => s.id === id);
+    if (idx === -1) return false;
+    this.studenti.splice(idx, 1);
+    return true;
+  }
+
+  // Aggiunto: crea uno studente con id automatico. mediaVoti è opzionale; se fornita viene salvata come singolo voto.
+  addStudent(payload: { nome: string; classe: string; mediaVoti?: number | string }) {
+    const maxId = this.studenti.length === 0 ? 0 : Math.max(...this.studenti.map(s => s.id));
+    const id = maxId + 1;
+    const mediaNum = payload.mediaVoti === undefined || payload.mediaVoti === '' ? null : Number(payload.mediaVoti);
+    const voti = mediaNum === null || Number.isNaN(mediaNum) ? [] : [mediaNum];
+    const nuovo = { id, nome: (payload.nome || '').trim(), classe: (payload.classe || '').trim(), voti };
+    this.studenti.push(nuovo);
+    return nuovo;
+  }
 }

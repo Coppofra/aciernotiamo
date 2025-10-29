@@ -2,5 +2,7 @@
   <span class="nome">{{ studente.nome }}</span>
   <span class="classe ms-2 text-muted">({{ studente.classe }})</span>
   <button type="button" (click)="toggleMedia()" class="mostra-media">mostra media voti</button>
-  <span *ngIf="showMedia" class="media">Media: {{ mediaCalcolata }}</span>
+  <!-- cambiato: applica mediaClass -->
+  <span *ngIf="showMedia" [ngClass]="mediaClass" class="media">Media: {{ mediaCalcolata }}</span>
+  <a [routerLink]="['/pagina3', studente.id]">Mostra dettagli</a>
 </div>

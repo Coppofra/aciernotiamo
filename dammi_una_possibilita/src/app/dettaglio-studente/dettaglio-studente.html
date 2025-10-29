@@ -1,0 +1,9 @@
+<p>Nome: {{ studente.nome }}</p>
+<p>Classe:{{ studente.classe }}</p>
+<p>Media voti: <span [ngClass]="mediaClass">{{ mediaString }}</span></p>
+
+<!-- Aggiunto: pulsante Studente successivo -->
+<div class="d-flex gap-2 align-items-center">
+  <a routerLink="/pagina3" class="btn btn-sm btn-outline-secondary">← Torna alla lista</a>
+  <button class="btn btn-sm btn-outline-primary" type="button" (click)="nextStudent()">Studente successivo →</button>
+</div>

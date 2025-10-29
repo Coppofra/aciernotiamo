@@ -1,1 +1,25 @@
 <p>pagina2 works!</p>
+
+<div class="card p-3">
+  <h3>Aggiungi studente</h3>
+  <form (submit)="$event.preventDefault(); addStudent()">
+    <div class="mb-2">
+      <label class="form-label">Nome</label>
+      <input class="form-control" type="text" [(ngModel)]="nome" name="nome" />
+    </div>
+    <div class="mb-2">
+      <label class="form-label">Classe</label>
+      <input class="form-control" type="text" [(ngModel)]="classe" name="classe" />
+    </div>
+    <div class="mb-2">
+      <label class="form-label">Media voti (opzionale)</label>
+      <input class="form-control" type="number" step="0.1" [(ngModel)]="mediaVoti" name="mediaVoti" />
+      <div class="form-text">Se inserita verrà salvata come unico voto (voti = [media]).</div>
+    </div>
+    <div class="d-flex gap-2">
+      <button class="btn btn-primary" type="button" (click)="addStudent()">Aggiungi</button>
+      <button class="btn btn-secondary" type="button" (click)="nome='';classe='';mediaVoti=null; message='';">Reset</button>
+    </div>
+    <div *ngIf="message" class="mt-2 alert alert-info p-2">{{ message }}</div>
+  </form>
+</div>

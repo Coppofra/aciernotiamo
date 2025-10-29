@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Injectable, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-studente',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink,],
   templateUrl: './studente.html',
   styleUrls: ['./studente.css'],
 })
@@ -37,6 +38,13 @@ export class Studente {
   get averageValue(): string {
     const avg = this.computeAverage();
     return avg === null ? '-' : avg.toFixed(1);
+  }
+
+  // Aggiunto: classe CSS per colore della media
+  get mediaClass(): string {
+    const avg = this.computeAverage();
+    if (avg === null) return '';
+    return avg >= 6 ? 'text-success' : 'text-danger';
   }
 }
 @Injectable({
